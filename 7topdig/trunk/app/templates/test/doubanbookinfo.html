@@ -1,0 +1,10 @@
+{% block bookinfo %}
+	<div class="bookinfo">
+	<h2> 显示信息 </h2>
+	{% for e in book['entries'] %}
+	  <dd> 标题: {{e.title}} </dd>
+	  <dd> 作者: {{e.author}} </dd>
+	  <dd> 简述: {{e.summary}} </dd>
+	{% endfor %}
+	</div>
+{% endblock %}

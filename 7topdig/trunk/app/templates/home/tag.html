@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+{% set title = "标签" %}
+
+{% from "macros/_paginate.html" import paginate %}
+{% from "macros/_post.html" import render_post with context %}
+
+{% block extrahead %}
+<link href="{{ url_for('feeds.tag', slug=tag.slug) }}" rel="alternate" type="application/atom+xml" title="topdig - {{ tag.name }}" /> 
+{% endblock %}
+
+{% block content %}
+<h2> 标记 '{{ tag.name }}' 的页面</h2>
+
+{% if page_obj.total %}
+	<div class="posts">
+		{% for post in page_obj.items %}
+		    {{ render_post(post) }}
+		{% endfor %}
+	</div>
+
+{% else %}
+	<p> 还没任何内容。 </p>
+{% endif %}
+
+{{ paginate(page_obj, page_url) }}
+
+{% endblock %}

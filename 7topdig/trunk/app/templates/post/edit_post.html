@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% from "macros/_forms.html" import render_errors %}
+
+{% block main %}
+<h2>编辑条目</h2>
+
+<form method="POST" action=".">
+    {{ form.hidden_tag() }}
+    {{ render_errors(form.title) }}
+    {{ form.title.label }}
+    {{ form.title(size=50) }}
+
+    {{ render_errors(form.link) }}
+    {{ form.link.label }}
+    {{ form.link(size=50) }}
+
+    {{ render_errors(form.tags) }}
+    {{ form.tags.label }}
+    {{ form.tags(size=50) }}
+    <small>用逗号分开Tags</small>
+
+    {{ render_errors(form.description) }}
+    {{ form.description.label }}
+    {{ form.description(rows=6, cols=30) }}
+
+    {{ render_errors(form.access) }}
+    {{ form.access.label }}
+    {% for option in form.access %}
+    {{ option }} {{ option.label(class_="checkbox") }} 
+    {% endfor %}
+
+    {{ form.submit }}
+    
+</form>
+
+{% endblock %}

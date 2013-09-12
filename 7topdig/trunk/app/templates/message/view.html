@@ -1,0 +1,47 @@
+{% extends "user/layout.html" %}
+{% set title = "查看消息" %}
+
+{% block page_content %}
+
+<h3>详细信息</h3>
+
+<div class="messages">
+
+<table class="view-message">
+{% if message.sender_id != user.id %}
+<tr>
+    <td>来自： </td>
+    <td><a href="{{ url_for('user.posts', username=message.sender.username) }}">{{ message.sender.username }} </a></td>
+</tr>
+{% endif %}
+
+{% if message.receiver_id != user.id %}
+<tr>
+    <td>发给： </td> 
+    <td><a href="{{ url_for('user.posts', username=message.receiver.username) }}">{{ message.receiver.username }} </a></td>
+</tr>
+{% endif %}
+
+<tr>
+    <td>标题： </td>
+    <td>{{ message.subject }} </td>
+</tr>
+<tr>
+    <td class="message-content" colspan=2>{{ message.content_html | safe }} </td>
+</tr>
+</table>
+
+
+{% if message.receiver_id == user.id %}
+    <div class="button">
+        <a href="{{ url_for('message.reply', message_id=message.id) }}">回复</a> 
+    </div>
+{% endif %}
+{% if message.owner_id == user.id %}
+    <div class="button">
+        <a href="#" onclick="delete_message('{{ url_for("message.delete", message_id=message.id) }}')">删除</a> 
+	</div>
+{% endif %}
+</div>
+
+{% endblock %}

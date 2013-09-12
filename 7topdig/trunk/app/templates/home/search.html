@@ -1,0 +1,24 @@
+{% extends "layout.html"%}
+{% set title = "搜索" %}
+
+{% from "macros/_paginate.html" import paginate %}
+{% from "macros/_post.html" import render_post with context %}
+
+
+{% block main %}
+<h2> '{{ keywords }}' 搜索结果</h2>
+{% if page_obj.total %}
+	<h3> Total <strong>{{ page_obj.total }}</strong></h3>
+	
+	{% for post in page_obj.items %}
+		{{ render_post(post) }} 
+	{% endfor %}
+
+{% else %}
+	<h3>没有任何发现, <a href="{{ url_for("home.submit") }}">投递新的</a></h3>
+{% endif %}
+
+{{ paginate(page_obj, page_url) }}
+
+{% endblock %}
+

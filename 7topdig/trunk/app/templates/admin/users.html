@@ -1,0 +1,43 @@
+{% extends 'admin/base.html' %}
+
+{% block right %}
+<div class="admin-right">
+	<h3> 添加新用户 </h3>
+	<form action="user" method="post">
+	   {{ form.csrf_token }}
+	   {{ form.csrf_token }}
+	   {{ form.username.label }}
+	   {{ form.username }}
+	   {{ form.password.label }}
+	   {{ form.password }}
+	   {{ form.email.label }}
+	   {{ form.email }}
+	   {{ form.submit }}
+	</form>
+
+
+	<h3> 现有用户 </h3>
+	
+	{% if not users %}
+		<p>没有用户</p>
+	{% else %}
+		<table>
+	    	<thead>
+	      	<tr>
+	        	<th>姓名</th>
+	        	<th>删除</th>
+	        </tr>
+	    	</thead>
+	    <tbody>
+		{% for user in users%}
+		<tr>
+			<th> <a href="{{url_for('user.posts', username=user.username)}}"> {{user.username}} </a> </th> 
+			<th><a href="{{url_for('admin.deluser', username=user.username)}}"> Delete </a> </th> 
+		</tr>
+		{% endfor %}
+		</tbody>
+		</table>
+	{% endif%}
+
+</div>
+{% endblock %}

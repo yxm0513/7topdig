@@ -1,0 +1,7 @@
+你好， {{ current_user.username }}
+
+{{ current_user.username }} 已经following你了!
+
+如果你想{{ current_user.username }} {{ url_for("user.posts", username=current_user.username, _external=True) }}
+
+

@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% set title = "发现用户" %}
+
+
+{% block main %}
+    <h3> 查看用户(刷新随机出现用户) </h3>
+	<form action="" method="post">
+	   {{ form.csrf_token }}
+	   {{ form.search.label }}
+	   {{ form.search }}
+	   {{ form.submit }}
+	</form>
+	
+	<div class="user-image-container">
+		{% for user in users %}
+			<div class="user-image">
+			    <a href="{{ url_for('user.posts', username=user.username) }}">
+				<img src="{{ user.avatar_url('small') }}" alt="{{ user.username }}"> 
+				</a>
+				<div class="user_name"> 
+                    <a href="{{ url_for('user.posts', username=user.username) }}"> {{ user.username }} </a>
+                </div>
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}
+
+{% block js_ext %}
+	<script type="text/javascript">
+		$(function(){
+			$(".user-image").each(function(){
+				var wid = $(this).width();
+				var hei = $(this).height();
+			    var posx = (Math.random() * ($('.user-image-container').width() - wid)).toFixed();
+			    var posy = (Math.random() * ($('.user-image-container').height() - hei)).toFixed();
+			    $(this).css({
+			        'position':'absolute',
+			        'left':posx+'px',
+			        'top':posy+'px'
+			    });
+				$(this).show(1200);
+			});
+		});
+	</script>
+{% endblock %}

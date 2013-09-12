@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+{% from "macros/_forms.html" import render_errors %}
+
+{% block main %}
+<h2> 重设密码 </h2>
+<form method="POST" action=".">
+    {{ form.hidden_tag() }}
+
+    {{ render_errors(form.password) }}
+    {{ form.password.label }} {{ form.password }}
+
+    {{ render_errors(form.password_again) }}
+    {{ form.password_again.label }} {{ form.password_again }}
+
+    {{ form.submit }}
+</form>
+
+{% endblock %}

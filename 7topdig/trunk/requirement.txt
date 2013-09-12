@@ -1,0 +1,10 @@
+FLask
+Babel
+Flask-DebugToolbar
+pytz
+Flask-WTF
+lamson
+Flask-SQLAlchemy
+docutils
+markdown
+feedparser

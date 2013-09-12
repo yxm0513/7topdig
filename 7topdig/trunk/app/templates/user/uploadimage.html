@@ -1,0 +1,81 @@
+{% extends "user/layout.html" %}
+
+{% block page_content %}
+  <form method="POST" enctype="multipart/form-data" action="{{url_for('user.uploadimage', username=user.username)}}">
+  	{{ form.hidden_tag() }}
+  	{{ form.image.label }}
+    {{ form.image }}
+    {{ form.submit }}
+  </form>
+  		<div style="padding:10px 0;color:#666;">
+		还没有合适的照片？<a style="color:#cc3300;" href="javascript:void(0);" onclick="useCamera()">请使用摄像头拍摄头像</a>
+		</div>
+  		<span style="display:none" id="loading_gif"><img src="{{ url_for('static', filename='image/loading.gif') }}"align="absmiddle" />上传中，请稍侯......</span>
+		<iframe src="about:blank" name="upload_target" style="display:none;"></iframe>
+		<div id="avatar_editor"></div>
+		<script type="text/javascript">
+		var extensions = 'jpg,jpeg,gif,png';
+		var saveUrl = '{{url_for("user.saveavatar", username = current_user.username)}}';
+		var cameraPostUrl = '{{url_for("user.camera", username = current_user.username)}}';
+		var editorFlaPath = '{{ url_for("static", filename="image/AvatarEditor.swf") }}';
+		function useCamera()
+		{
+			var content = '<embed height="464" width="514" ';
+			content +='flashvars="type=camera';
+			content +='&postUrl='+cameraPostUrl+'?&radom=1';
+			content += '&saveUrl='+saveUrl+'?&radom=1" ';
+			content +='pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" ';
+			content +='allowscriptaccess="always" quality="high" ';
+			content +='src="'+editorFlaPath+'"/>';
+			$('#avatar_editor').html(content);
+		}
+		function buildAvatarEditor(pic_id,pic_path,post_type)
+		{
+			var content = '<embed height="464" width="514"'; 
+			content+='flashvars="type='+post_type;
+			content+='&photoUrl='+pic_path;
+			content+='&photoId='+pic_id;
+			content+='&postUrl='+cameraPostUrl+'?&radom=1';
+			content+='&saveUrl='+saveUrl+'?&radom=1"';
+			content+=' pluginspage="http://www.macromedia.com/go/getflashplayer"';
+			content+=' type="application/x-shockwave-flash"';
+			content+=' allowscriptaccess="always" quality="high" src="'+editorFlaPath+'"/>';
+			$('#avatar_editor').html(content);
+		}
+			/**
+			  * 提供给FLASH的接口 ： 没有摄像头时的回调方法
+			  */
+			 function noCamera(){
+				 alert("对不起，您还没有安装摄像头！ ：）");
+			 }
+					
+			/**
+			 * 提供给FLASH的接口：编辑头像保存成功后的回调方法
+			 */
+			function avatarSaved(){
+			//	alert('保存成功，缓存刷新后显示新头像！');
+			//	window.location.href = '{{user.uploadimage}}';
+				window.location.reload();
+			}
+			
+			 /**
+			  * 提供给FLASH的接口：编辑头像保存失败的回调方法, msg 是失败信息，可以不返回给用户, 仅作调试使用.
+			  */
+			 function avatarError(msg){
+				 alert("上传失败，请重新上传编辑！" + msg);
+			 }
+              function	showLoading()
+			  {
+				  $('#loading_gif').show();
+			  }
+			  function hideLoading()
+			  {
+				  $('#loading_gif').hidden();
+			  }
+		      
+			  {% if image_url %}
+		      		buildAvatarEditor("{{user.username}}",'{{image_url | basename}}',"photo");
+		      {% endif %}
+		</script>
+
+{% endblock %}

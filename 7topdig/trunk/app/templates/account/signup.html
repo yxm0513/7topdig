@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% from "macros/_forms.html" import render_errors %}
+
+{% set title="注册" %}
+
+{% block main %}
+<h2> 注册 </h2>
+
+<form method="POST" action=".">
+    {{ form.hidden_tag() }}
+    {{ form.next }}
+
+    {{ render_errors(form.username) }}
+    {{ form.username.label }} {{ form.username }}
+
+    {{ render_errors(form.email) }}
+    {{ form.email.label }} {{ form.email }}
+
+    {{ render_errors(form.password) }}
+    {{ form.password.label }} {{ form.password }}
+
+    {{ render_errors(form.password_again) }}
+    {{ form.password_again.label }} {{ form.password_again }}
+
+    {{ form.submit }}
+
+</form>
+
+{% endblock %}

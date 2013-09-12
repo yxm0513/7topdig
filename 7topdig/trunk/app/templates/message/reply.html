@@ -1,0 +1,20 @@
+{% extends "user/layout.html" %}
+
+{% from "macros/_forms.html" import render_errors %}
+{% block page_content %}
+
+<h3>回复信息</h3>
+
+<div>
+
+  <form method="POST">
+    {{ form.hidden_tag() }}
+           回复给： <a href="{{ url_for('user.posts', username=message.sender.username) }}"> {{ message.sender.username }} </a> <br/>
+    {{ form.subject.label }} {{ form.subject() }} {{ render_errors( form.subject.errors ) }}<br/>
+    {{ form.content.label }} {{ form.content(rows=22,cols=70) }} {{ render_errors( form.content.errors ) }}<br/>
+
+    {{ form.submit }}
+  </form>
+</div>
+
+{% endblock %}

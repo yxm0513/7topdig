@@ -1,0 +1,19 @@
+{% extends "layout.html"%}
+{% set title = page.name %}
+
+{% block css_ext %}
+	<link rel="stylesheet" type="text/css" href= "{{ url_for('static', filename='css/rst_style.css') }}"/>
+{% endblock %}
+
+{%block main%}
+	<div class = "markdown-body">
+		{% if page.type == 1 %}
+			{{ page.source |  rst }}
+		{% else %}
+			{{ page.source |  markdown }}
+		{% endif %}
+		{% if current_user.is_admin %}
+			<a href="{{url_for('home.page', name = page.name, action='edit')}}">编辑</a>
+		{% endif %}
+	</div>
+{% endblock %}

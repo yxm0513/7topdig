@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+{% from "macros/_forms.html" import render_errors %}
+
+{% set title  = '找回密码'  %}
+
+{% block main%}
+<h1> 找回密码 </h1>
+
+<form method="POST" action="{{url_for('account.forgotpass')}}">
+	{{ form.csrf_token }}
+	{{ render_errors(form.email) }}
+	{{ form.email.label }} 
+	{{ form.email }}
+
+	{{ form.submit }}
+</form>
+
+
+{% endblock %}

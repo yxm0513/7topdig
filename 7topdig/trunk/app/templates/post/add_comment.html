@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block main %}
+<h2><a href="{{ url_for("post.view", post_id=post.id) }}">{{ post.title }}</a></h2>
+
+{% if parent %}
+	{{ parent.markdown }}
+{% endif %}
+
+	<form method="POST" action=".">
+	    {{ form.hidden_tag() }}
+	    {{ form.comment }}
+	    {{ form.submit }}
+	</form>
+
+{% endblock %}

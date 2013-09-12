@@ -1,0 +1,32 @@
+{% extends 'admin/base.html' %}
+
+{% block right %}
+<div class="admin-right">
+	<h3> 现有条目 </h3>
+		<form id="add_post" method="POST" action="{{ url_for('admin.posts') }}">
+		<input type="text" placeholder="douban id" name="douban_id">
+		<input id="submit" type="submit" value="添加">
+		</form>
+	{% if not posts %}
+		<p>没有用户</p>
+	{% else %}
+	    <table>
+        <thead>
+        <tr>
+            <th>标题</th>
+            <th>删除</th>
+        </tr>
+        </thead>
+        <tbody>
+		{% for post in posts%}
+            <tr>
+			<th><a href="{{url_for('post.view', post_id=post.id)}}"> {{post.title}} </a> </th>
+			<th><a href="{{url_for('admin.delpost', id=post.id)}}"> Delete </a></th>
+            </tr>
+		{% endfor %}
+        </tbody>
+        </table>
+	{% endif%}
+
+</div>
+{% endblock %}

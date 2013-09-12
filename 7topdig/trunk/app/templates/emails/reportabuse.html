@@ -1,0 +1,12 @@
+{% trans username=current_user.username, 
+         comment=comment.comment, 
+         comment_url=comment.permalink %}
+User {{ username }} has reported abuse in this comment:
+
+{{ comment }}
+------------------------------------------------------------
+
+{{ complaint }}
+
+{{ comment_url }}
+{% endtrans %}

@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+{% from "macros/_forms.html" import render_errors %}
+
+{% set title = "登录" %} 
+
+{% block main%}
+<div class="login">
+	<form method="POST" action=".">
+	    {{ form.hidden_tag() }}
+	    {{ form.next }}
+
+		{{ render_errors(form.login) }}
+	    {{ form.login.label }}
+	    {{ form.login(size=15) }}
+	
+	    {{ render_errors(form.password) }}
+	    {{ form.password.label }} 
+	    {{ form.password(size=15) }}
+	
+		<br/>
+	    {{ form.remember }} 
+	    {{ form.remember.label }}
+	
+	    {{ form.submit }} 
+	    <a href="{{ url_for('account.forgotpass') }}"> 找回密码</a>
+
+	</form>
+</div>
+
+<div class="vendor_login">
+	<div>
+		<a href="{{url_for("account.url")}}">使用新浪微博登陆</a>
+	</div>
+</div>
+
+{% endblock %}

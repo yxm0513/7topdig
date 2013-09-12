@@ -1,0 +1,32 @@
+{% extends "user/layout.html"%}
+{% set title = "我的账号" %}
+
+{% from "macros/_paginate.html" import paginate %}
+
+{%block page_content %}
+
+	{% if page_obj.total %}
+	
+		{% for post in page_obj.items %}
+		<h3>
+		    
+		{% if post.permissions.vote %}
+		<span id="vote-{{ post.id }}">
+	    	<a href="#" onclick="vote_post('{{ url_for('post.upvote', post_id=post.id) }}'); return false;"><img src="{{ url_for('static', filename='image/up-icon.png') }}"></a>
+	   	 	<a href="#" onclick="vote_post('{{ url_for('post.downvote', post_id=post.id) }}'); return false;"><img src="{{  url_for('static', filename='image/down-icon.png') }}"></a>
+		</span>
+		{% endif %}
+		<a href="{{ post.url }}">{{ post.title }}</a>	
+		</h3>
+		<p>
+		<a href="{{ url_for('post.view', post_id=post.id) }}">评论 ({{ post.num_comments }})</a> | 
+		分数 <span id="score-{{ post.id }}">{{ post.score }}</span> | 
+		{{ post.date_created | timesince }} 提交 
+		{% endfor %}
+	
+	{% else %}
+		<p> 没有提交过内容 </p>
+	{% endif %}
+	
+	{{ paginate(page_obj, page_url) }}
+{% endblock %}

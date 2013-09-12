@@ -1,0 +1,28 @@
+{% extends 'admin/base.html' %}
+
+{% block right %}
+<div class="admin-right">
+	<h3> 现在所有的页面 </h3>	
+	{% if not pages %}
+		<p>目前还没有页面</p>
+	{% else %}
+		<table>
+    	<thead>
+      	<tr>
+        	<th>页面</th>
+        	<th>删除</th>
+        </tr>
+    	</thead>
+	    <tbody>
+		{% for page in pages%}
+			<tr>
+				<th><a href="{{url_for('home.page', name=page.name)}}"> {{page.name}} </a> </th>
+				<th><a href="{{url_for('admin.delpage', name=page.name)}}"> Delete </a> </th>
+			</tr>
+		{% endfor %}
+		</tbody>
+		</table>
+	{% endif%}
+
+</div>
+{% endblock %}

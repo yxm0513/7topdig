@@ -1,0 +1,72 @@
+{% extends "layout.html" %}
+
+{% block head_ext %}
+	<link href="{{ url_for('feeds.user', username=user.username) }}" rel="alternate" type="application/atom+xml" title="topdig - hot" /> 
+{% endblock %}
+
+{% block main %}
+
+<div class="user-info-board">
+
+    	<div class="user-info-image">
+	    	{% if current_user == user %}
+	        	<a href="{{url_for('user.uploadimage', username=user.username)}}">
+	        {% else %}
+	        	<a href="{{url_for('user.posts', username=user.username)}}">
+	        {% endif %}
+	        		<img src="{{ user.avatar_url('big') }}" alt="{{ user.username }}"/> 
+	        	</a> 
+        </div>
+        
+        <div class="user-info-button">
+	        <span class="follow" {% if current_user.is_following(user) %} style="display:none;"{% endif %}>
+	        	<a href="#" onclick="ajax_post('{{ url_for("account.follow", user_id=user.id) }}'); return false;"> 关注</a>
+	    	</span>
+	    	<span class="unfollow" {% if not current_user.is_following(user) %} style="display:none;"{% endif %}>
+	        	<a href="#" onclick="ajax_post('{{ url_for("account.unfollow", user_id=user.id) }}'); return false;"> 取消关注 </a>
+	    	</span>
+	        <span class="send-message" {% if current_user == user %} style="display:none;"{% endif %}>
+	        	<a href="{{ url_for('message.send', user_id=user.id) }}"> 发消息 </a>
+	    	</span>
+    	</div>
+            
+        <div class="user-info-header">
+			{{ user.username }} 点击数  {{ user.karma }} | 注册于 {{ user.date_joined|timesince }}
+		</div>
+		<div class="navigation">
+		    <ul>
+		    	<li><a href="{{ url_for('user.posts', username=user.username) }}">条目</a> : {{num_posts}} </li>
+		    	<li><a href="{{ url_for('user.comments', username=user.username) }}">评论</a> : {{num_comments}} </li>
+		    	<li><a href="{{ url_for('user.following', username=user.username) }}">关注</a> : {{user.num_following}} </li>
+		    	<li><a href="{{ url_for('user.followers', username=user.username) }}">粉丝</a> : {{user.num_followers}} </li>
+		    </ul>
+		</div>
+	{% if current_user.id == user.id %}
+	<span>短信息</span>
+	<div class="navigation">
+		<ul>
+                <li><a href="{{url_for('message.inbox')}}">收件箱</a></li>
+                <li><a href="{{url_for('message.outbox')}}">发件箱</a></li>
+                <li><a href="{{url_for('message.send')}}">发信息</a></li>
+	    </ul>
+	</div>
+	<span>设置</span>
+	<div class="navigation">
+		<ul>
+		    <li><a href="{{url_for('user.uploadimage', username=user.username)}}">设置头像</a></li>
+		    <li><a href="{{ url_for("account.resetpass") }}">重设密码</a></li>
+	    </ul>
+	</div>
+	
+    {% elif current_user %}
+	    {% if user.permissions.send_message %}
+	    <a id="send-mail" href="{{ url_for('user.send_mail', user_id=user.id) }}">发送邮件给{{ user.username }}</a>
+	    {% endif %}
+	{% endif %}
+</div> 
+<div class="user-posts">
+	{% block page_content %}
+	
+	{% endblock %}
+</div>
+{% endblock %}

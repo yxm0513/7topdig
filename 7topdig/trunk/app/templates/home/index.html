@@ -1,0 +1,21 @@
+{% extends "layout.html"%}
+{% set title = "首页" %}
+
+{% from "macros/_category.html" import render_category with context %}
+
+{% block main %}
+<div class="categories">
+    {% if categories %}
+
+        {% for c in categories %}
+            {{ render_category(c) }} 
+        {% endfor %}
+    
+    {% else %}
+        <p> 目前还没有任何内容！ </p>
+    {% endif %}
+    
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% macro render_post(post) %}
+
+<div class="post-summary">
+    <div class="counts">
+        <div class="votes">
+            <div class="vote-count">
+            	<span id="score-{{post.id}}">{{ post.score }}</span>
+            </div>
+            <div>votes</div>
+        </div >
+    </div>
+ 
+	<h2>
+    	<a href="#" onclick="vote_post('{{ url_for('post.upvote', post_id=post.id) }}'); return false;"><img src="{{ url_for('static', filename='image/up-icon.png') }}"></a>
+    	<a href="#" onclick="vote_post('{{ url_for('post.downvote', post_id=post.id) }}'); return false;"><img src="{{ url_for('static', filename='image/down-icon.png') }}"></a>
+		<a href="{{ post.url }}" class="{{ post.access_name }}">{{ post.title }}</a>
+	</h2>
+		<div class="post-info">
+			<a href="{{ post.url }}">评论({{ post.num_comments }})</a> |
+			{{ post.date_created | timesince }} 
+			由 <a href="{{ url_for('user.posts', username=post.author.username) }}">{{ post.author.username }}</a> 提交  
+		</div>
+</div>
+
+{% endmacro %}

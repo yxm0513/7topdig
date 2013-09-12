@@ -1,0 +1,133 @@
+TODO:
+ * 部署：
+    * 标语的设计
+    * 填写介绍性的内容
+    * 转MySQL (未来)
+ * 微博登陆 -- Simon
+ * 用户的关注界面应该显示 关注对象的动态，比如：  -- Ray
+    * 新写了post
+    * new comments
+    * 加了好友
+ * More data should be added into data.py
+    * 把图片也拿回来
+ * 加一个表for search word, 使得以后搜索可以提示，也知道用户搜索了什么  -- Simon
+    * complete search word autocomplete
+    * http://www.jqueryrain.com/2012/03/35-best-ajax-jquery-autocomplete-tutorial-plugin-with-examples/
+ * 搜索引擎优化，加sitemaps
+ * 增强UI
+    * 使得回车起作用，现在很多form必须点提交才有效
+    * comments can be add/preview/cancel
+    * html/css 优化, 该加table的地方加table, 该做效果的地方做效果
+    * cleanup 不需要的css文件， 使得在不同页面加载需要的css和js
+    * 优化macros/xxx.html
+ * admin的强化  -- Simon
+    * 修改用户如果是管理员，在post页面之间可以选择post, 删除等操作。  -- Simon
+ * internation -> python gettext -- will not be done( if need just use Flask-Babel)
+ * 为图书条目增加图片
+ * 豆瓣上关于it的书，或者是python, perl的书的数据先抓下来  -- Ray
+    * 研究一下豆瓣搜索，完了再抓数据 : http://api.douban.com/book/subjects?tag=python
+    * 如果用户试图获取的是不存在的一个id, 给用户提示。
+ * 书的不同难度问题
+ * 用户收藏问题   --Ray
+Other:
+ * 像douban一样给出书的各大电商的价格
+
+
+
+Something need to be investigated. 
+ * #@cached()
+ * #@keep_login_url
+ * 查询popular().hottest()
+ 
+ share
+ 	AddThis Button BEGIN
+	<div class="addthis_toolbox addthis_default_style">
+	<a href="http://www.addthis.com/bookmark.php?v=250&amp;username=xa-4c5e6e125f2a74cb" class="addthis_button_compact">Share</a>
+	<span class="addthis_separator">|</span>
+	<a class="addthis_button_facebook"></a>
+	<a class="addthis_button_myspace"></a>
+	<a class="addthis_button_google"></a>
+	<a class="addthis_button_twitter"></a>
+	</div>
+	<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=xa-4c5e6e125f2a74cb"></script>
+	AddThis Button END
+	
+
+
+
+
+$.getJSON("http://api.douban.com/movie/subject/2340927?alt=xd&callback=?", function(movie){
+    var title = movie.title['$t'];
+    ...
+});
+
+
+
+
+Done
+ * Cache -- Simon  (需要知道什么情况需要cache,什么情况不需要)
+ * 理清楚具体权限的问题  -- Simon
+ * 首页呈现最新动态template/home/index/ --> latestinfoupdate和Tags -- Simon
+    * update 显示
+    * 增加其他操作到info-update-board中
+ * 一段时间内只能顶或者踩同一条目一次 -- Simon  -- Basic done
+ * pagination 再增强一下，如果页面过多的时候，只显示当前页 1...x-1 x x+1... n , goto page []  -- Basic done
+ * Enhance it can edit page source like : http://rst.ninjs.org/ -- Simon
+ * fix 登录时记住用户的功能 -- Simon
+ * 用户只要提供一个link,或者书名， 系统帮助用户构建需要的信息。  -- Simon
+ * 简化验证码输入 (暂时不用这个，要是需要可以用发邮件active_key的方式让用户激活)
+   * http://pypi.python.org/pypi/captchaimage
+   * http://pypi.python.org/pypi/numcaptcha/0.01
+ * jinja2 filter |timesince  in posts.html
+ * UI增强
+    * tag 显示的问题  -- Simon  增强
+    * tag 可以用中文 ， 或者是用英文,分割  -- Done,  多个tag不能有一样的
+    * comments javascript help edit,like tinycme
+    * Tag cloud 显示 -- Simon
+ * 添加用户相互发送message -- Ray
+   * 通过ajax 删除信息
+   * 清理html, css, tables
+ * Admin 增强
+   * 加tag管理
+ * 部署
+   * 邮件服务器架设  -- Done   (need fix issue in admin/mailall)   
+
+=== Issue List ===
+1. user should NOT un/follow itself
+fixed by ray
+
+2. when sumit new post form, the link error is "must be vaild link". Why not add 'http' prefix automatically?
+fixed by ray
+3. post permission issue!! I can see and edit other's post which is set to private!!
+fixed. need enhancement.
+
+4. user should NOT vote one post for more than one time, right? up/down as well
+fixed by ray
+
+5. delete post failed!!!!!
+fixed by ray
+
+6. Forget to reduce the comment number when delete comment.
+fixed by ray
+
+more to be found...
+
+
+jquery fedeOut Example → api.jquery.com
+jquery fedeOut Example jquery fedeOut Example * jquery fedeOut Example
+
+wtforms.simplecodes.com
+Parameters: label The label of the field. validators A sequence of validators to call when validate is called. filters A sequence of filters which are run on input data by process. description A description for the field, typically used for help text. id An id to use for the field. A reasonable default is set by the form, and you shouldnt need to set this manually. default The default value to assign to the field, if no form or object input is provided. May be a callable. widget If provided, overrides the widget used to render the field. _form The form holding this field. It is passed by the form itself during construction. You should never pass this value yourself. _name The name of this field, passed by the enclosing form during its construction. You should never pass this value yourself. _prefix The prefix to prepend to the form name of this field, passed by the enclosing form during construction.
+
+
+<!-- UJian Button BEGIN -->
+<script type="text/javascript" src="http://v1.ujian.cc/code/ujian.js?type=slide&uid=1655649"></script>
+<!-- UJian Button END -->
+
+<div id="uyan_frame"></div>
+<script type="text/javascript" id="UYScript" src="http://v1.uyan.cc/js/iframe.js?UYUserId=1655649" async=""></script>
+
+
+#}
+#    reload(sys)
+#    sys.setdefaultencoding('utf-8')

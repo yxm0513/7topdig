@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% set title = "系统管理" %}
+{% block main %}
+  {% block left%}
+  <div class="admin-left">
+  	<div class="navigation">
+	  <ul>
+		<li ><a href="{{ url_for('admin.users')}}">用户</a>
+		<li ><a href="{{ url_for('admin.pages')}}">页面</a>
+		<li ><a href="{{ url_for('admin.posts')}}">条目</a>
+		<li ><a href="{{ url_for('admin.tags')}}">标签</a>
+		<li ><a href="{{ url_for('admin.mailall')}}">Mail 所有用户</a>
+	  </ul>
+	 </div>
+  </div>
+  {% endblock %}
+   
+  {% block right %}
+	<div class="admin-right"> 
+	</div>
+  {% endblock %}
+   
+{% endblock %}

@@ -1,0 +1,37 @@
+<div class="title">最新信息</div>
+<div class="latest-info-update-scoll">		
+<ul>
+{% if actions %}
+	{% for action in actions %}
+	<li>
+		<div class="thumbnail">
+		    <a href="{{ url_for('user.posts', username=action.user.username) }}"> 
+			    <img src="{{ action.user.avatar_url('small') }}" alt="{{ action.user.username }}"> 
+			</a>
+		</div>
+		<div class="userinfo">
+		 	<a href="{{ url_for('user.posts', username=action.user.username) }}"> {{ action.user.username }} </a>
+			<span class="cat">{{action.action}}</span>
+			<span class="cat">{{action.dateshow}}</span>
+		</div> 
+		<div class="clear"></div>
+	</li>
+	{% endfor %}
+{% endif %}
+</ul>
+</div>
+
+{% block inf_js_ext %}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/slides/jcarousellite_1.0.1.pack.js')}}"></script>
+	<script type="text/javascript">
+		$(function(){ 
+			$(".latest-info-update-scoll").jCarouselLite({
+				vertical: true,
+				hoverPause:true,
+				visible: 4,
+				auto:500,
+				speed:1000
+			});
+		});
+	</script>
+{% endblock %}

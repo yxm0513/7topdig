@@ -1,0 +1,134 @@
+#wrapper{
+float:left;
+clear:both;
+background:white;
+}
+
+#commentForm{
+float:left;
+clear:both;
+}
+
+#comments{
+float:left;
+width:350px;
+}
+
+#commntMaxChar{
+font-size:14px;
+}
+
+#working{
+float:left;
+margin:5px 0px 0px 5px;
+}
+
+#error{
+
+}
+
+
+#errorM{
+background-color:#FF5353;
+margin:5px;
+padding:5px;
+border:1px solid #ffffff;
+text-align:center;
+font-weight:bolder;
+}
+
+.hide{
+display:none;
+}
+
+.show{
+display:block;
+}
+
+.moreLess{
+font-size:12px;
+cursor:pointer;
+color:#0000FF;
+}
+
+.moreLess:hover{
+text-decoration:underline;
+}
+
+#saveComment{
+float:left;
+font-size:16px;
+clear:both;
+}
+
+#commentWrapper{
+float:left;
+width:313px;
+border-top:1px solid #CCCCCC;
+padding:5px;
+}
+
+#commentWrapper:hover{
+background-color:#F5F5F5;
+}
+
+#commentWrapperSmall{
+float:left;
+width:313px;
+border-top:1px solid #CCCCCC;
+padding:5px;
+}
+
+#commentWrapperSmall:hover{
+background-color:#F5F5F5;
+cursor:pointer;
+}
+
+#commentName{
+float:left;
+color:#003366;
+font-size:14px;
+width:230px;
+overflow:hidden;
+}
+
+#commentComment{
+float:left;
+clear:both;
+width:300px;
+overflow:hidden;
+white-space: pre-wrap; /* css-3 */
+white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+white-space: -pre-wrap; /* Opera 4-6 */
+white-space: -o-pre-wrap; /* Opera 7 */
+word-wrap: break-word; /* Internet Explorer 5.5+ */
+}
+
+#commentCommentSmall{
+float:left;
+clear:both;
+width:300px;
+overflow:hidden;
+white-space: pre-wrap; /* css-3 */
+white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+white-space: -pre-wrap; /* Opera 4-6 */
+white-space: -o-pre-wrap; /* Opera 7 */
+word-wrap: break-word; /* Internet Explorer 5.5+ */
+}
+
+.commentCommentMore{
+float:left;
+display:none;
+width:300px;
+overflow:hidden;
+white-space: pre-wrap; /* css-3 */
+white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+white-space: -pre-wrap; /* Opera 4-6 */
+white-space: -o-pre-wrap; /* Opera 7 */
+word-wrap: break-word; /* Internet Explorer 5.5+ */
+}
+
+#commentTime{
+float:right;
+font-size:11px;
+}

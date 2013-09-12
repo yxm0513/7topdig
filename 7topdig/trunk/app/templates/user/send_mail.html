@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% from "macros/_forms.html" import render_errors %}
+
+{% block page_content %}
+
+<h2>"发送消息给" {{ user.username }}</h2>
+
+<form method="POST" action=".">
+    {{ form.hidden_tag() }}
+
+    {{ render_errors(form.subject) }}
+    {{ form.subject.label }}
+    {{ form.subject(size=50) }}
+
+    {{ render_errors(form.message) }}
+    {{ form.message.label }}
+    {{ form.message }}
+
+    {{ form.submit }}
+
+</form>
+
+{% endblock %}

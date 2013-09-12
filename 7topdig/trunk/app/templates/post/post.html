@@ -1,0 +1,76 @@
+{% extends "layout.html" %}
+
+{% from "macros/_comment.html" import render_comment with context %}
+
+{% block css_ext %}
+	<link rel="stylesheet" type="text/css" href= "{{ url_for('static', filename='css/comments/style.css') }}"/>
+{% endblock %}
+
+
+{% block main %}
+	<h1>
+		{% if post.link %}
+			<a href="{{ post.link }}">{{ post.title }}</a>
+		{% else %}
+			{{ post.title }}
+		{% endif %}
+	</h1>
+
+	{% if post.description %}
+		<div class="desc">
+			{{ post.description | markdown }}
+		</div>
+	{% endif %}
+	
+	{% if post.permissions.vote %}
+		<span id="vote-{{ post.id }}">
+		    <a href="#" onclick="vote_post('{{ url_for('post.upvote', post_id=post.id) }}'); return false;"><img src="{{ url_for('static', filename='image/up-icon.png') }}"></a>
+		    <a href="#" onclick="vote_post('{{ url_for('post.downvote', post_id=post.id) }}'); return false;"><img src="{{  url_for('static', filename='image/down-icon.png') }}"></a>  
+		</span>
+	{% endif %}
+	<div class="post-info">
+		由 <a href="{{ url_for('user.posts', username=post.author.username) }}">{{ post.author.username }}</a> 
+		提交于： {{ post.date_created|timesince }}  
+		| <a href="{{ post.permalink }}">链接</a> 
+    	{% if current_user %} 
+	    	{% if post.permissions.edit %}
+	    		| <a href="{{ url_for('post.edit', post_id=post.id) }}">编辑</a> 
+	    	{% endif %}
+	    	{% if post.permissions.delete %}
+			    | <a href="#" onclick="delete_post('{{ url_for("post.delete", post_id=post.id) }}')">删除</a> 
+		    {% endif %}
+		{% endif %}
+	</div>
+	<div class="clear"></div>
+
+	<h3>标签</h3>
+	{% if post.tags %}
+		<div class="tags">
+		    {% for tag, url in post.linked_taglist %}
+		    <div class="tag">
+		    	<a href="{{ url }}">{{ tag }}</a> 
+		    </div>
+		    {% endfor %}
+		</div>
+		<div class="clear"></div>
+	{% endif %}
+
+	
+	{% if post.comments %}
+		<h3>评论</h3>
+	    {% for comment in post.comments %}
+	    	{{ render_comment(comment) }}
+	    {% endfor %}
+	{% else %}
+		<p>目前还没有评论。 </p>
+	{% endif %}
+	<h3>添加评论</h3>
+	<div class="comment-form">
+	    <form id="comment-form" method="POST" action="{{ url_for('post.add_comment', post_id=post.id) }}">
+	        {{ comment_form.hidden_tag() }}
+	        {{ comment_form.comment }}
+	        {{ comment_form.submit }}
+	    </form>
+	</div>
+
+{% endblock %}

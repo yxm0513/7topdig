@@ -1,0 +1,32 @@
+{% extends "user/layout.html" %}
+
+{% set title = "comments" %}
+
+{% block page_content %}
+	
+	{% if page_obj.total %}
+	<div class="comments">
+	{% for comment in page_obj.items %}
+		<div>
+			{% if comment.permissions.vote %}
+			<span id="vote-comment-{{ comment.id }}">
+			    <a href="#" onclick="vote_comment('{{ url_for('comment.upvote',  comment_id=comment.id) }}'); return false;"><img src="{{ url_for('static', filename='image/up-icon.png') }}"></a>
+			    <a href="#" onclick="vote_comment('{{ url_for('comment.downvote', comment_id=comment.id) }}'); return false;"><img src="{{ url_for('static', filename='image/down-icon.png') }}"></a>  
+			</span>
+			{% endif %}
+			分数 <span id="score-comment-{{ comment.id }}">{{ comment.score }}</span> | 
+			{{ comment.date_created|timesince }} 提交 |
+			<a href="{{ comment.url }}">内容</a>  
+		</div>
+		
+		{% if comment.comment %}
+			{{ comment.markdown }}
+		{% endif %}
+	
+	{% endfor %}
+	</divs>
+	{% else %}
+		 没有评论
+	{% endif %}
+
+{% endblock %}

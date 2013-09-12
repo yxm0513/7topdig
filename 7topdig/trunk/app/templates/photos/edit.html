@@ -1,0 +1,41 @@
+{% extends theme("layout.html") %}
+{% from "macros/_forms.html" import render_errors %}
+
+{% block main %}
+<h2>{{ _('Edit this photo') }}</h2>
+
+<form method="POST" action="." enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+
+    {{ render_errors(form.title) }}
+    {{ form.title.label }}<br>
+    {{ form.title(size=50) }}
+
+    {{ render_errors(form.photo) }}
+    {{ form.photo.label }}<br>
+    {{ form.photo }}
+
+    {{ render_errors(form.link) }}
+    {{ form.link.label }}<br>
+    {{ form.link(size=50) }}
+
+    {{ render_errors(form.tags) }}
+    {{ form.tags.label }}<br>
+    {{ form.tags(size=50) }}
+    <br><small>{{ _('Separate tags with a comma') }}</small>
+
+    {{ render_errors(form.description) }}
+    {{ form.description.label }}<br>
+    {{ form.description(rows=6, cols=30) }}
+
+    {{ render_errors(form.access) }}
+    {{ form.access.label }}<br>
+    {% for option in form.access %}
+    {{ option }} {{ option.label(class_="checkbox") }} 
+    {% endfor %}
+
+    <input type="submit" value="Update">
+
+</form>
+
+{% endblock %}

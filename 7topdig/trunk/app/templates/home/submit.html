@@ -1,0 +1,59 @@
+{% extends "layout.html"%}
+{% set title = "提交新条目" %}
+
+{% from "macros/_paginate.html" import paginate %}
+{% from "macros/_post.html" import render_post with context %}
+{% from "macros/_forms.html" import render_errors %}
+
+{% block main %}
+<div class="category_submit">
+    <h1>添加新类型</h1>
+    <form method="POST" action=".">
+    {{ category_form.hidden_tag() }}
+    {{ render_errors(category_form.name) }}
+    {{ category_form.name.label }}
+    {{ category_form.name() }}
+    {{ category_form.father.label }}
+    {{ category_form.father() }}
+    {{ category_form.submit }}
+    
+    </form>
+</div>
+<div class="post_submit">
+	<h1>添加新条目</h1>
+	
+	<form method="POST" action=".">
+	    {{ form.hidden_tag() }}
+	    {{ render_errors(form.title) }}
+	    {{ form.title.label }}
+	    {{ form.title(size=50, placeholder="标题 - 50 字内") }}
+	
+	    {{ render_errors(form.link) }}
+	    {{ form.link.label }}
+	    {{ form.link(size=50) }}
+	
+	    {{ render_errors(form.tags) }}
+	    {{ form.tags.label }}
+	    {{ form.tags(size=50) }}
+	
+	    {{ render_errors(form.description) }}
+	    {{ form.description.label }}
+	    {{ form.description(rows=6, cols=30) }}
+	
+	    {{ render_errors(form.access) }}
+	    {{ form.access.label }}
+	    {% for option in form.access %}
+	         	{{ option }} {{ option.label(class_="checkbox") }} 
+	    {% endfor %}
+		{{ form.submit }}
+	            
+	</form>
+</div>
+
+<div class="load_data_from">
+	<h1> 加载数据 </h1>
+    {{ loadform.douban.label }}
+    {{ loadform.douban(size=50, placeholder="链接 or ID") }}
+    {{ loadform.submit(onclick="load_data()") }}
+</div>
+{% endblock %}

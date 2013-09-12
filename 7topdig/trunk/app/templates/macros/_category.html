@@ -1,0 +1,10 @@
+{% macro render_category(c) %}
+    <div class="category">
+        {{c.name}}
+	    {% if c.category %}
+	        {% for child in c.category %}
+	            {{ render_category(child) }}
+	        {% endfor %}
+	    {% endif %}
+    </div>
+{% endmacro %}

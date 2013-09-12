@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<head>
+{% block head %}
+	{% block title %}
+		<title> 学点啥： {{title}}</title>
+	{% endblock %}
+	
+	{% block css %}
+		<link rel="stylesheet" type="text/css" href= "{{ url_for('static', filename='css/base.css') }}"/>
+		<link rel="stylesheet" type="text/css" href= "{{ url_for('static', filename='css/sticky.css') }}"/>
+		<link rel="stylesheet" type="text/css" href= "{{ url_for('static', filename='css/apprise.css') }}"/>
+	{% endblock %}
+	{% block css_ext %}  {% endblock %}
+	
+	{% block js %}
+		<script type=text/javascript  src="{{ url_for('static', filename='js/jquery-1.7.2.js') }}"></script>
+		<script type=text/javascript  src="{{ url_for('static', filename='js/sticky.js') }}"></script>
+		<script type=text/javascript  src="{{ url_for('static', filename='js/apprise.js') }}"></script>
+		<script type=text/javascript>
+	  		$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+		</script>
+		<script type=text/javascript src="{{ url_for('static', filename='js/base.js') }}"></script>
+	{% endblock %}
+	{% block js_ext %}  {% endblock %}
+
+    {% block head_ext %}
+		<meta http-equiv="pragma" content="no-cache">
+		<meta http-equiv="expires" content="0">
+    {% endblock %}
+
+{% endblock %}
+</head>
+
+<body>
+{% block body %}
+    <div id="notification" style="display:none;"> {% include "_notification.html" %} </div>
+
+	{% block container %}
+	<div class="container">
+	    {% block header %}
+	    <div class="header">
+		    {% include "logo.html"%}
+		    {% include "headnav.html"%}
+	    	<div class="clear"></div>
+		    {% include "metanav.html" %}
+		    {% include "searchform.html" %}	  
+            {% include "nav.html" %}
+		</div>
+	    {% endblock %}
+	
+		{% block content %}
+		<div class="content">
+			<div class="clear"></div>
+			
+			<div class="main">
+				{% block main %}
+			
+				{% endblock %}
+			</div>
+		</div>
+		{% endblock %}
+	
+		<div class="clear"></div>
+	    {% block footer %}
+	        <div class="footer">
+	        {% include "footer.html"%} 
+	        </div>
+	    {% endblock %}
+	</div>	    
+    {% endblock %}	
+
+{% endblock %}
+
+</body>
+</html>

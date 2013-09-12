@@ -1,0 +1,28 @@
+{% extends 'admin/base.html' %}
+
+{% block right %}
+<div class="admin-right">
+	<h3> 现在标签 </h3>	
+	{% if not tags %}
+		<p>目前还没有标签</p>
+	{% else %}
+		<table>
+    	<thead>
+      	<tr>
+        	<th>标签</th>
+        	<th>删除</th>
+        </tr>
+    	</thead>
+	    <tbody>
+		{% for tag in tags%}
+			<tr>
+				<th><a href="{{url_for('home.tag', slug=tag.name)}}"> {{tag.name}} </a> </th>
+				<th><a href="{{url_for('admin.deltag', slug=tag.name)}}"> Delete </a> </th>
+			</tr>
+		{% endfor %}
+		</tbody>
+		</table>
+	{% endif%}
+
+</div>
+{% endblock %}

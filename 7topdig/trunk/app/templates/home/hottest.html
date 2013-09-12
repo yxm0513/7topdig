@@ -1,0 +1,25 @@
+{% extends "layout.html"%}
+{% set title="最近更新" %}
+
+{% from "macros/_paginate.html" import paginate %}
+{% from "macros/_post.html" import render_post with context %}
+
+
+{% block extrahead %}
+<link href="{{ url_for('feeds.latest') }}" rel="alternate" type="application/atom+xml" title="topdig - hottest" /> 
+{% endblock %}
+
+
+{% block main %}
+	{% if page_obj.total %}
+
+			{% for post in page_obj.items %}
+				{{ render_post(post) }} 
+			{% endfor %}
+	
+	{% else %}
+		<p>还没有内容，现在 。。。</p>
+	{% endif %}
+	
+	{{ paginate(page_obj, page_url) }}
+{% endblock %}

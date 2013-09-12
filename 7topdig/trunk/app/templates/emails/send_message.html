@@ -1,0 +1,15 @@
+Hi {{ user.username }}
+
+You have received a message from user {{ current_user.username }}.
+
+The message is:
+
+{{ subject }}
+
+{{ message }}
+
+{% if user.permissions.send_message %}
+Go here to reply to this message:
+
+{{ url_for('user.send_message', user_id=current_user.id, _external=True) }}
+{% endif %}

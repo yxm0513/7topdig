@@ -1,0 +1,71 @@
+{% macro render_comment(comment) %}
+    <div class="comment">
+            <div class="comment-image">
+                <img src="{{ comment.author.avatar_url('small') }}" alt="{{ comment.author.username }}">
+                <div class="username">
+                    <a href="{{ url_for('user.posts', username=comment.author.username) }}">{{ comment.author.username }}</a>
+                </div>
+            </div>
+            <div class="comment-other">
+                <div class="comment-vote">
+                    {% if comment.permissions.vote %}
+                    <span id="vote-comment-{{ comment.id }}">
+                        <a href="#" onclick="vote_comment('{{ url_for('comment.upvote', comment_id=comment.id) }}'); return false;"><img src="{{ url_for('static', filename='image/up-icon.png') }}"></a>
+                        <a href="#" onclick="vote_comment('{{ url_for('comment.downvote', comment_id=comment.id) }}'); return false;"><img src="{{ url_for('static', filename='image/down-icon.png') }}"></a>  
+                    </span>
+                    {% endif %}
+                </div>
+                <div class="comment-content">
+                    {% if comment.comment %}
+                        {{ comment.comment | markdown }}
+                    {% endif %}
+                </div>
+                <div class="comment_footer">
+                    <span class="date">{{ comment.dateshow }}</span>
+                    
+                    分数  <span id="score-comment-{{ comment.id }}">{{ comment.score }}</span> |
+                    {% if current_user %}
+                        <a href="#" onclick="$('#comment-form-{{ comment.id }}').toggle();return false;">回复</a> | 
+                    {% endif %}
+                    
+                    {% if comment.permissions.edit %}
+                        <a href="#edit-comment-form-{{ comment.id }}" onclick="$('#edit-comment-form-{{ comment.id }}').toggle();">编辑</a> |
+                        <a href="#" onclick="delete_comment('{{ url_for("comment.delete", comment_id=comment.id) }}')">删除</a> 
+                    {% endif %}
+                </div>
+            </div>
+        
+
+    {% if current_user %}
+        <form id="comment-form-{{ comment.id }}" 
+              method="POST" 
+              style="display:none;"
+              action="{{ url_for('post.add_comment', post_id=post.id, parent_id=comment.id) }}">
+            {{ comment_form.hidden_tag() }}
+            {{ comment_form.comment }}
+            {{ comment_form.submit(value="回复") }}
+            {{ comment_form.cancel(onclick="$('#comment-form-%d').toggle(); return false;" % comment.id) }}
+        </form>
+    {% endif %}
+    {% if current_user.username == comment.author.username %}
+        <form id="edit-comment-form-{{ comment.id }}"
+            style="display:none;"
+            method="POST"
+            action="{{ url_for('comment.edit', comment_id=comment.id) }}">
+            {% with form = edit_comment_form(comment) %}
+                {{ form.hidden_tag() }}
+                {{ form.comment }} 
+                {{ form.submit }}
+                {{ form.cancel(onclick="$('#edit-comment-form-%d').toggle(); return false;" % comment.id) }}
+            {% endwith %}
+        </form>
+   {% endif %}
+
+    {% if comment.comments %}
+        {% for child_comment in comment.comments %}
+            {{ render_comment(child_comment) }}
+        {% endfor %}
+    {% endif %}
+
+    </div>
+{% endmacro %}

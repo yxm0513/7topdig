@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block content %}
+	<h2>举报</h2>
+	
+	<p> 你有需要举报的，我们会把内容提交给管理员，管理员会做出相应的处理。</p>
+	<h3>评论</h3>
+		{{ comment.markdown }}
+	<p>
+	<a href="{{ url_for("post.view", post_id=comment.post.id) }}#comment-{{ comment.id }}">{{ comment.post.title }}</a>
+	</p>
+	<form method="POST" action=".">
+	    {{ form.hidden_tag() }}
+	    {{ form.complaint }}
+	    {{ form.submit }}
+	</form>
+{% endblock %}

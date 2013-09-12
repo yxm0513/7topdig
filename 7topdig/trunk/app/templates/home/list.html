@@ -1,0 +1,52 @@
+{% extends "layout.html"%}
+{% set title = "排行" %}
+
+{% from "macros/_paginate.html" import paginate %}
+{% from "macros/_post.html" import render_post with context %}
+{% from "macros/_backto_top.html" import backto_top %}
+
+{% block extrahead %}
+	<link href="{{ url_for('feeds.index') }}" rel="alternate" type="application/atom+xml" title="topdig" /> 
+{% endblock %}
+
+{% block main %}
+	<div class="posts">
+		{% if page_obj.total %}
+
+			{% for post in page_obj.items %}
+				{{ render_post(post) }} 
+			{% endfor %}
+		
+		{% else %}
+			<p> 目前还没有任何内容！ </p>
+		{% endif %}
+		
+		{{ paginate(page_obj, page_url) }}
+	</div>
+	
+	<div class="latest-info-update">
+		
+	</div>
+	
+	{{ backto_top() }}
+{% endblock %}
+
+{% block js_ext %}
+	<script type="text/javascript">
+		function updatelatestinfo(){
+			$.ajax({
+				url : $SCRIPT_ROOT + "/updatelatestinfo",
+				data : {},
+				dataType : "html"
+			}).done(function(data) {
+					$('.latest-info-update').html(data);
+			});	
+		}
+		$(function(){
+			/*window.setTimeout(updatelatestinfo, 600); */
+			window.setTimeout(updatelatestinfo, 600);
+		});
+	</script>
+{% endblock %}
+{% block inf_js_ext %}
+{% endblock %}

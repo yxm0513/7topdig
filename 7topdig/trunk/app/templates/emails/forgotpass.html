@@ -1,0 +1,5 @@
+{% with reset_password_url=url_for('account.resetpass', activation_key=user.activation_key, _external=True) %}
+请使用下方的链接重设你的密码:
+{{ reset_password_url }}
+
+{% endwith %}

@@ -1,0 +1,25 @@
+{% extends "layout.html"%}
+{% set title = "标签" %}
+
+{% block main %}
+	<h3> 标签 </h3>
+	<div class="tag_cloud">
+		<ul>
+	    {% for tag in tags %}
+	    	<li class="tag">
+	    		<a class="tag-{{ tag.size }} tag-{{ loop.cycle('odd', 'even') }}" href="{{ tag.url }}">{{ tag.name }}</a>
+	    	</li>
+	    {% endfor %}
+	    </ul>
+	</div>
+{% endblock %}
+
+{% block js_ext %}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/tags/jquery.mousewheel.min.js')}}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/tags/jquery.tagsphere.min.js')}}"></script>
+	<script type="text/javascript">
+		$(function(){
+			$('.tag_cloud').tagcloud({centrex:350, centrey:250, init_motion_x:10, init_motion_y:10});
+		});
+	</script>
+{% endblock %}

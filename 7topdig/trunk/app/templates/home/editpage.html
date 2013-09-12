@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+{% set title = "编辑页面" %}
+
+
+{% block css_ext %}
+	<link rel="stylesheet" type="text/css" href= "{{ url_for('static', filename='css/markitup/style.css') }}"/>
+	<link rel="stylesheet" type="text/css" href= "{{ url_for('static', filename='css/markitup/simple.css') }}"/>
+	<link rel="stylesheet" type="text/css" href= "{{ url_for('static', filename='css/rst_style.css') }}"/>
+{% endblock %}
+
+{% block js_ext %}
+	<script type=text/javascript  src="{{ url_for('static', filename='js/markitup/jquery.markitup.js') }}"></script>
+	<script type=text/javascript  src="{{ url_for('static', filename='js/markitup/set.js') }}"></script>
+	<script type=text/javascript>
+		$(function() {	
+			$('textarea#page_edit').markItUp(mySettings);
+		});
+	</script>
+{% endblock %}
+
+
+
+{% block main%}
+  <h1> <a href="{{url_for('home.page', name = page.name)}}">{{page.name}}</a> </h1>
+  
+  {% if preview %}
+			  <div class="preview"> 
+					<div class = "markdown-body">
+						{% if page.type == 1 %}
+							{{ preview |  rst }}
+						{% else %}
+							{{ preview |  markdown }}
+						{% endif %}
+					</div>	  	
+			  </div>
+  {% endif %}
+  
+  <form action="{{url_for('home.page', name = page.name)}}" method=post>
+    {{ form.rawtext(rows=22,cols=70) }} <br/>
+	{{ form.texttype }}
+    {{ form.save }}
+    {{ form.preview }} 
+    {{ form.cancel }} 
+
+  </form>
+
+{% endblock %}

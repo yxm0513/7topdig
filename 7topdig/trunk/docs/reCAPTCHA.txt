@@ -1,0 +1,10 @@
+reCAPTCHA
+
+Domain Name:	com
+This is a global key. It will work across all domains.
+
+Public Key:	6LeNxtQSAAAAAGarvgDEQ-NX7dJTyKaRLDAZYaV7
+Use this in the JavaScript code that is served to your users
+
+Private Key:	6LeNxtQSAAAAABRsqcTHbtHH0FKcfWYag1I-Zoz_
+Use this when communicating between your server and our server. Be sure to keep it a secret.

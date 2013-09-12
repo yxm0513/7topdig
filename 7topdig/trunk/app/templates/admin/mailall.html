@@ -1,0 +1,17 @@
+{% extends 'admin/base.html' %}
+
+{% block right %}
+<div class="admin-right">
+	<h3> 发送邮件： </h3>
+	<form action="" method="post">
+		{{ form.csrf_token }}
+		{{ form.subject.label }}
+		{{ form.subject }}
+		{{ form.message.label }}
+		{{ form.message }}
+		{{ form.submit }}
+	</form>
+
+
+</div>
+{% endblock %}

@@ -1,0 +1,30 @@
+doctype 5
+html
+  head
+    title= "WebLog"
+    link(rel='stylesheet', href='/style.css')
+    //script(src='/jquery.min.js')
+    script(src='http://code.jquery.com/jquery-1.10.1.min.js')
+    script(src='/socket.io/socket.io.js')
+    script(src='/weblog.js')
+  body
+      #svc_dv 
+      h1
+        | VNXe Online Log collection 
+      div.hostform
+        form(action='/',method='post')
+          label(for='hostname') System Name: 
+            span.comments (.eg BC-D1000)
+          input(id='hostname',type='text',value='')
+          label(for='ar') AR:   
+            span.comments (Optional: .eg 572303 )
+          input(id='ar',type='text',value='')
+          input(id='submit',type='button',value='Submit')
+      div.statusbar
+          span#action
+          span#actionstatus
+      div.page.green
+         .page-container
+             div#status.red Disconnected
+             div#data
+

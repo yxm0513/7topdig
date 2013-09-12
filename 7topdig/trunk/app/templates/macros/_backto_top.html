@@ -1,0 +1,27 @@
+{% macro backto_top() %}
+<div id="backto_top">
+</div>
+
+<style>
+#backto_top {
+	left: auto; 
+	right: 5px; 
+	position: fixed; 
+	top: auto; 
+	bottom: 10px; 
+	overflow: hidden; 
+	background: url({{ url_for('static', filename='image/backto_top.png')}}) no-repeat scroll -64px 0px transparent; 
+	display: block;  
+	width: 32px;
+	height: 32px;
+}
+</style>
+
+<script type="text/javascript">
+	$(function() {
+		$('#backto_top').click(function(){
+			$('html, body').animate({ scrollTop: 0 }, 'slow');
+		});
+	});	
+</script>
+{% endmacro %}

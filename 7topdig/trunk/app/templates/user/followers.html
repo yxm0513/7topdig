@@ -1,0 +1,37 @@
+{% extends "user/layout.html" %}
+
+{% set title = "粉丝" %}
+
+{% block page_content %}
+
+
+<div class="followers">
+    <h3> 粉丝 </h3>
+            {% for user in followers %}
+                <a href="{{ url_for("user.posts", username=user.username) }}">
+                    <img src="{{ user.avatar_url('small') }}" title="{{ user.username }}" alt="{{ user.username }}">
+                </a>
+                <a href="{{ url_for("user.posts", username=user.username) }}">
+                   {{ user.username }}
+                </a>
+            {% endfor %}
+
+
+    <h3> 动态 </h3>
+
+    {% for action in actions %}
+        <div class="userinfo">
+        <a href="{{ url_for("user.posts", username=action.user.username) }}">
+            <img src="{{ action.user.avatar_url('small') }}" title="{{ action.user.username }}" alt="{{ action.user.username }}">
+        </a>
+            <a href="{{ url_for('user.posts', username=action.user.username) }}"> {{ action.user.username }} </a>
+            <span class="cat">{{action.action}}</span>
+            <span class="cat">{{action.dateshow}}</span>
+        </div>
+        <div class="clear"></div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}
